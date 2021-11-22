@@ -75,9 +75,9 @@ void main(void)
 
 	printk("Sleep %u s with UART off\n", SLEEP_S);
 	rc = pm_device_state_set(cons, PM_DEVICE_STATE_SUSPENDED);
-	k_sleep(K_SECONDS(SLEEP_S));
+	k_msleep(30000);
 	rc = pm_device_state_set(cons, PM_DEVICE_STATE_ACTIVE);
-
+	printk("Wakeup with UART on\n");
 	printk("Entering system off; press BUTTON1 to restart\n");
 
 	if (IS_ENABLED(CONFIG_APP_RETENTION)) {
@@ -95,5 +95,6 @@ void main(void)
 	printk("ERROR: System off failed\n");
 	while (true) {
 		/* spin to avoid fall-off behavior */
+		//k_msleep(1000);
 	}
 }
